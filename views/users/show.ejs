@@ -15,12 +15,17 @@
 
 </ul>
 
-<p>
-    <a href="/users/<%= user.id %>/edit" class="button">Edit</a>
+<% if (session.user) { %>
+    <p>
+        <a href="/users/<%= user.id %>/edit"class="button">Edit</a>
 
-    <a href="/users/<%= user.id %>?_method=DELETE"
-       onClick="return confirm('Delete user: <%= user.username %>');"
-       class="button">Delete</a>
-</p>
+        <a href="/users/<%= user.id %>?_method=DELETE"
+
+                    onClick="return confirm('Delete user: <%= user.username %>');"
+                class="button">Delete
+
+        </a>
+    </p>
+<% } %>
 
 <a href="/goback" class="button">Go back</a>
