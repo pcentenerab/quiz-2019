@@ -17,14 +17,18 @@
 
 <% if (session.user) { %>
     <p>
-        <a href="/users/<%= user.id %>/edit"class="button">Edit</a>
+        <% if (session.user.isAdmin || session.user.id === user.id) { %>
+            <a href="/users/<%= user.id %>/edit"class="button">Edit</a>
+        <% } %>
 
-        <a href="/users/<%= user.id %>?_method=DELETE"
+        <% if (session.user.isAdmin && session.user.id !== user.id) { %>
+            <a href="/users/<%= user.id %>?_method=DELETE"
 
-                    onClick="return confirm('Delete user: <%= user.username %>');"
-                class="button">Delete
+                        onClick="return confirm('Delete user: <%= user.username %>');"
+                    class="button">Delete
 
-        </a>
+            </a>
+        <% } %>
     </p>
 <% } %>
 
