@@ -14,7 +14,7 @@ const cloudinary_upload_options = {
     async: false,
     folder: "/core/quiz2018/attachments",
     resource_type: "auto",
-    tags: ['core', 'quiz']
+    tags: ['core', 'iweb', 'cdps', 'quiz']
 };
 
 
@@ -108,8 +108,8 @@ exports.index = (req, res, next) => {
         res.render('quizzes/index.ejs', {
             quizzes,
             search,
-            cloudinary,
-            title
+            title,
+            attHelper
         });
     })
     .catch(error => next(error));
@@ -123,7 +123,7 @@ exports.show = (req, res, next) => {
 
     res.render('quizzes/show', {
         quiz,
-        cloudinary
+        attHelper
     });
 };
 
@@ -186,11 +186,15 @@ exports.create = (req, res, next) => {
             return;
         }
 
-        // Save the attachment into  Cloudinary
-        return attHelper.checksCloudinaryEnv()
-        .then(() => {
-            return attHelper.uploadResourceToCloudinary(req.file.path, cloudinary_upload_options);
-        })
+        // Save the attachment into  Cloudinary or local file system:
+
+        if (!process.env.CLOUDINARY_URL) {
+            req.flash('info', 'Attrachment files are saved into the local file system.');
+        } else {
+            req.flash('info', 'Attrachment files are saved at Cloudinary.');
+        }
+
+        return attHelper.uploadResource(req.file.path, cloudinary_upload_options)
         .then(uploadResult => {
 
             // Create the new attachment into the data base.
@@ -205,7 +209,7 @@ exports.create = (req, res, next) => {
             })
             .catch(error => { // Ignoring validation errors
                 req.flash('error', 'Failed to save file: ' + error.message);
-                cloudinary.api.delete_resources(uploadResult.public_id);
+                attHelper.deleteResource(uploadResult.public_id);
             });
 
         })
@@ -277,23 +281,36 @@ exports.update = (req, res, next) => {
     .then(quiz => {
         req.flash('success', 'Quiz edited successfully.');
 
-        if (!req.body.keepAttachment) {
+        if (req.body.keepAttachment) {
 
+            if (req.file) {
+                fs.unlink(req.file.path, err => {
+                    if (err) {
+                        console.log(`Error deleting ${req.file.path} file: ${err}`);
+                    }
+                }); // delete the file uploaded at./uploads
+            }
+
+        } else {
             // There is no attachment: Delete old attachment.
             if (!req.file) {
                 req.flash('info', 'This quiz has no attachment.');
                 if (quiz.attachment) {
-                    cloudinary.api.delete_resources(quiz.attachment.public_id);
+                    attHelper.deleteResource(quiz.attachment.public_id);
                     quiz.attachment.destroy();
                 }
                 return;
             }
 
-            // Save the new attachment into Cloudinary:
-            return attHelper.checksCloudinaryEnv()
-            .then(() => {
-                return attHelper.uploadResourceToCloudinary(req.file.path, cloudinary_upload_options);
-            })
+            // Save the new attachment into Cloudinary or local file system:
+
+            if (!process.env.CLOUDINARY_URL) {
+                req.flash('info', 'Attrachment files are saved into the local file system.');
+            } else {
+                req.flash('info', 'Attrachment files are saved at Cloudinary.');
+            }
+
+            return attHelper.uploadResource(req.file.path, cloudinary_upload_options)
             .then(function (uploadResult) {
 
                 // Remenber the public_id of the old image.
@@ -314,12 +331,12 @@ exports.update = (req, res, next) => {
                 .then(function(attachment) {
                     req.flash('success', 'Image saved successfully.');
                     if (old_public_id) {
-                        cloudinary.api.delete_resources(old_public_id);
+                        attHelper.deleteResource(old_public_id);
                     }
                 })
                 .catch(function(error) { // Ignoring image validation errors
                     req.flash('error', 'Failed saving new image: '+error.message);
-                    cloudinary.api.delete_resources(uploadResult.public_id);
+                    attHelper.deleteResource(uploadResult.public_id);
                 });
 
 
@@ -356,10 +373,14 @@ exports.destroy = (req, res, next) => {
 
     // Delete the attachment at Cloudinary (result is ignored)
     if (req.quiz.attachment) {
-        attHelper.checksCloudinaryEnv()
-        .then(() => {
-            cloudinary.api.delete_resources(req.quiz.attachment.public_id);
-        });
+
+        if (!process.env.CLOUDINARY_URL) {
+            req.flash('info', 'Attrachment files are saved into the local file system.');
+        } else {
+            req.flash('info', 'Attrachment files are saved at Cloudinary.');
+        }
+
+        attHelper.deleteResource(req.quiz.attachment.public_id);
     }
 
     req.quiz.destroy()
@@ -384,7 +405,7 @@ exports.play = (req, res, next) => {
     res.render('quizzes/play', {
         quiz,
         answer,
-        cloudinary
+        attHelper
     });
 };
 
