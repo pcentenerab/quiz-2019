@@ -10,35 +10,37 @@
     <%= title || "Questions" %>:
 </h1>
 
-<table>
+<table id="quizzesIndex">
     <% for (var i in quizzes) { %>
     <% var quiz = quizzes[i]; %>
     <tr>
+
+        <td>
+            <% var attachment = quiz.attachment; %>
+            <% include ../attachments/_show %>
+        </td>
+
         <td>
             <a href="/quizzes/<%= quiz.id %>/play"><%= quiz.question %></a>
-        </td>
-        <td colspan="2">
+            <br />
             <small> (by <%= quiz.author ? quiz.author.username : "Anonymous" %>) </small>
         </td>
 
-        <% if (session.user) { %>
-            <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
+        <td>
+            <% if (session.user) { %>
+                <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
+                        <a href="/quizzes/<%= quiz.id %>"class="button">show</a>
 
-                <td>
-                    <a href="/quizzes/<%= quiz.id %>"class="button">show</a>
-                </td>
-                <td>
-                    <a href="/quizzes/<%= quiz.id %>/edit"class="button">edit</a>
-                </td>
-                <td>
-                    <a href="/quizzes/<%= quiz.id %>?_method=DELETE"
-                       onClick="return confirm('Delete: <%= quiz.question %>');"
-                        class="button">
+                        <a href="/quizzes/<%= quiz.id %>/edit"class="button">edit</a>
+
+                        <a href="/quizzes/<%= quiz.id %>?_method=DELETE"
+                           onClick="return confirm('Delete: <%= quiz.question %>');"
+                            class="button">
                 delete
-                    </a>
-                </td>
+                        </a>
+                <% } %>
             <% } %>
-        <% } %>
+        </td>
     </tr>
     <% } %>
 </table>
