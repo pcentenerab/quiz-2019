@@ -153,3 +153,58 @@ exports.check = (req, res, next) => {
         answer
     });
 };
+
+
+// GET /quizzes/randomplay
+exports.randomPlay = (req, res, next) => {
+
+	req.session.randomPlay = req.session.randomPlay || [];
+    const op = Sequelize.Op;
+    const whereOp = {id: {[op.notIn]: req.session.randomPlay}};
+
+
+    models.quiz.count({where:whereOp})
+    .then(count => {
+        if(count===0){  
+        	//Ya no queda ninguna pregunta por responder
+            const puntos = req.session.randomPlay.length;
+            // Vaciamos el array para la siguiente vez que se juegue
+            req.session.randomPlay = [];
+            res.render('quizzes/random_none',{puntos});
+        }
+        // Buscamos quiz aleatorio no jugado aun
+        return models.quiz.findAll({
+            where: whereOp,
+            offset: Math.floor(count*Math.random()),
+            limit: 1
+        })
+        .then(quizzes => {
+            return quizzes[0];
+        });
+    })
+    .then(quiz =>{
+        const puntos = req.session.randomPlay.length;
+        res.render('quizzes/random_play',{quiz, puntos});
+    })
+    .catch(error => {
+        next(error);
+    });
+};
+
+
+// GET /quizzes/randomcheck/:quizId?answer=<respuesta>
+exports.randomCheck = (req, res, next) => {
+	const {quiz, query} = req;
+    const ans = query.answer || "";
+    // Si la respuesta es correcta, result valdra 1 y si no, 0
+    const result = ans.toLowerCase().trim() === quiz.answer.toLowerCase().trim();
+    const puntos = req.session.randomPlay.length + result;
+    // Añadimos el id de la pregunta bien contestada al array correspondiente
+    req.session.randomPlay.push(quiz.id);
+    if(!result){
+    	// Respuesta erronea -> vaciamos array de las acertadas para la siguiente vez que se juegue
+        req.session.randomPlay = [];
+    }
+    // Renderizamos la pagina de resultados
+    res.render('quizzes/random_result', {ans, result, puntos});
+};
