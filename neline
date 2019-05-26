@@ -1,0 +1,189 @@
+[33mcommit ef9b713b4284b34778822ae276f5bcafcec92630[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 17:44:44 2019 +0100
+
+    Step 29 - Limits resource creation.
+    
+    User can only create 50 quizzes per day.
+    Only 50 tips per quiz.
+    One attachment edition per minute.
+
+[33mcommit 8c4919e2fce1c36c2c3fd4a151ebf02fc33f35af[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 17:36:00 2019 +0100
+
+    Step 28 - API.
+    
+    Added: HTTP Access Control. Author: Sonsoles.
+
+[33mcommit 2aa5aa9d21788dd30f782e41e40da0f6f1d924bd[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 17:18:30 2019 +0100
+
+    Step 27 - Testing.
+
+[33mcommit b4366d2a27db78ee7b5692ab254e5650d6f37d54[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 17:13:31 2019 +0100
+
+    Step 26 - JSON Format.
+
+[33mcommit cdc679dd6719bcf4f58dadd88c8ec094559999b9[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 17:05:49 2019 +0100
+
+    Step 25 - Favourites.
+
+[33mcommit d488e1b95296f297690673891fac7edf64cbace6[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 16:47:08 2019 +0100
+
+    Step 24.1 - CDPS - Attachments can be saved either at Cloudinary or into the local file system.
+
+[33mcommit b25031002975cdec45f6a480fc5ef211d3511691[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Tue Mar 26 16:35:02 2019 +0100
+
+    Step 24 - Quiz with Attachment.
+
+[33mcommit 307968b17973b424c8e9d01e071d2ece0139d781[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:57:13 2019 +0100
+
+    Step 23 - HTTPS.
+
+[33mcommit 97bd19d260164585c960faf082bc0b60512fbe30[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:55:58 2019 +0100
+
+    Step 22 - Roles and Permissions.
+    
+    The environment variable QUIZ_OPEN_REGISTER is used to indicate who can register (and create) new users.
+    If variable QUIZ_OPEN_REGISTER exists, then any user can register (and create) new users.
+    If the variable QUIZ_OPEN_REGISTER does not exist, then only the administrator can register (and create) new users.
+
+[33mcommit cfca9439280edb8dc94672d91091cfdccefd5b97[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:40:00 2019 +0100
+
+    Step 21 - Moderation of Tips.
+
+[33mcommit f69ad85f994e34f32bd428361dfcd40ea787a28e[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:33:20 2019 +0100
+
+    Step 20 - Authorization.
+
+[33mcommit 5f545f35740f4139350dcf002a93ef32bff61aa9[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:25:37 2019 +0100
+
+    Step 19 - Restoration Routes.
+
+[33mcommit b5f6ddead673a4214819ca8aa1018943c75752af[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:18:50 2019 +0100
+
+    Step 18 - My questions.
+
+[33mcommit 7f193864ef7fd624325c927edb4d0d80944d79b8[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:14:44 2019 +0100
+
+    Step 17 - Authors of the Quizzes.
+
+[33mcommit 2b8fc720c88d5e9effb2dc166ddfd60012551ff4[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:08:14 2019 +0100
+
+    Step 16 - Authentication and Sessions.
+
+[33mcommit 87d7a70973f191151bb8b7b3bfb7c4127e08e1a1[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 18:00:08 2019 +0100
+
+    Step 15 - Users Resource.
+
+[33mcommit 9ec6145bbfe2fb8bf0a9bf77d8f805b04981663f[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:53:41 2019 +0100
+
+    Step 14 - Tips.
+
+[33mcommit c085be63c3889e3c4559ea5cf6baea6f16d5bab7[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:46:31 2019 +0100
+
+    Step 13 - Searches.
+
+[33mcommit 860d64ccf4187560acf66f3610066d31503724e2[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:42:42 2019 +0100
+
+    Step 12 - Pagination.
+
+[33mcommit cf1807c8856395ed9293347b7f85d48f9c2081da[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:37:46 2019 +0100
+
+    Step 11 - Migrations and Seeders.
+
+[33mcommit 30ed272dcd0e5a9f74bdd7341d297e08d6a32642[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:30:04 2019 +0100
+
+    Step 10 - Heroku Postgres.
+
+[33mcommit 77d71240e7205b8bd84470a8363f561c3702f419[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 17:25:08 2019 +0100
+
+    Step 9 - Flash Messages.
+
+[33mcommit a7e6c81ff281143458fc9946484027523e80e777[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 16:43:03 2019 +0100
+
+    Step 7 - Resource Quizzes with autoload.
+
+[33mcommit 71fb6eba8fe72134f8ea3511253310a570925311[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 16:39:51 2019 +0100
+
+    Step 6 - Resource Quizzes sin autoload.
+
+[33mcommit c91c6ae839f98f7df52e97f0721b1c396a94f5cf[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 15:41:44 2019 +0100
+
+    Step 5 - Deploy at Heroku.
+
+[33mcommit b48125560f11d372d7ba1143ab7d274736b601c7[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 15:30:53 2019 +0100
+
+    Step 4 - Responsive Design.
+
+[33mcommit 10b1e50d9748da3e5c807319e740b61eb0987c29[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 15:25:28 2019 +0100
+
+    Step 3 - Create application layout.
+
+[33mcommit 700711c18a0d349e8544599403754ddcdb7396c0[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 15:17:58 2019 +0100
+
+    Step 2 - Change home page title, remove User resource and add favicon, Add Author page.
+
+[33mcommit 96a4239c350c2aef18660b2ad6ae7411ef42383b[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 14:34:24 2019 +0100
+
+    Step 1 - Skeleton.
+
+[33mcommit f14c0dc53199ca38316d04b9eb18aa11fe2272a5[m
+Author: Santiago Pavon <santiago@dit.upm.es>
+Date:   Mon Mar 25 14:28:19 2019 +0100
+
+    Step 0 - Initial Commit.
